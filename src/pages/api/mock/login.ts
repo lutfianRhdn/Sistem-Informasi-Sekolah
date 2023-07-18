@@ -1,0 +1,45 @@
+import type { NextApiRequest, NextApiResponse } from 'next'
+import { serializeCookie } from '@lib'
+import prisma from '@lib/database'
+import {compareSync} from 'bcrypt-ts';
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  const { username, password } = req.body
+  try {
+    
+    if (username === '000' && password === "password") {
+      const cookie = serializeCookie('user', { username: 'admin'  })
+      return res.status(200)
+        .setHeader('Set-Cookie', cookie)
+        .json({ login: true })
+    }
+    let user:any = {}
+    if (username.length === 8) {
+      user = await prisma.murid.findUnique({
+        where: {
+          nis: username
+        }
+      })
+    } else if (username.length === 18) {
+      user =await prisma.guru.findUnique({
+        where: {
+          nip: username
+        }
+      })
+    } else {
+     return res.status(404).json({ login: false, error: 'User tidak ditemukan' })
+    }
+    console.log(user)
+    const passwordIsValid = compareSync(password, user.password)
+    if (!passwordIsValid) {
+      return res.status(404).json({ login: false, error: 'User tidak ditemukan' })
+    }
+    const cookie = serializeCookie('user', user)
+    return res.status(200)
+      .setHeader('Set-Cookie', cookie)
+      .json({ login: true })
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({ login: false, error })
+  }
+}
