@@ -6,7 +6,7 @@ import { faLock } from '@fortawesome/free-solid-svg-icons'
 import {
   Button, Col, Container, Form, InputGroup, Row,
 } from 'react-bootstrap'
-import { SyntheticEvent, useState } from 'react'
+import { SyntheticEvent, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import axios from 'axios'
 import { deleteCookie, getCookie } from 'cookies-next'
@@ -43,7 +43,17 @@ const Login: NextPage = () => {
     try {
       const res = await axios.post('api/mock/login', inputs)
       if (res.status === 200) {
-        router.push('/admin')
+        console.log(res.data)
+        switch (res.data.role) {
+          case 'admin':
+            router.push('/admin')
+            break
+            default:
+            router.push('/dashboard')
+            break
+        }
+        // router.push('/admin')
+        
       }
       setSubmitting(false)
     } catch (error: any) {

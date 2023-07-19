@@ -55,8 +55,11 @@ model Guru{
 
 model Soal{
   id        Int      @id @default(autoincrement())
-  pah_file      String
+  path_file      String
+  title     String  
+  description String
   type      SoalType @default(TUGAS)
+  tenggat DateTime
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   kunci_jawaban_path String?
