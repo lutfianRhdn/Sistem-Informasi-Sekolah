@@ -24,19 +24,9 @@ model Murid {
 }
 model Kelas{
   id        Int      @id @default(autoincrement())
-  nama      String
+  nama      String @unique
   murid     Murid[]
-  wali_kelas WaliKelas?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-model WaliKelas{
-  id        Int      @id @default(autoincrement())
-  nama      String
-  alamat    String
-  kelas_id  Int @unique
   password String
-  kelas     Kelas    @relation(fields: [kelas_id], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

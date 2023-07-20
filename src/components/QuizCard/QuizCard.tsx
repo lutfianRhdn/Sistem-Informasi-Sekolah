@@ -72,6 +72,11 @@ export default function QuizCard({ id, path_file, title, description, type, role
             <Col>
               <Link className="w-100 btn btn-outline-primary" href={`${pdfUrl}`}>Liat Soal</Link>
             </Col>
+            {(role == 'teacher'  || !role) && (
+              <Col>
+              <Link className="w-100 btn btn-outline-primary" href={`/quiz/${id}`}>Lihat Jawaban</Link>
+            </Col>
+            )}
             {(role === 'student' && !is_answered) ? (
               <Col>
               <Link className="w-100 btn btn-outline-primary" href={`/test/answer/${id}`}>Kumpulkan</Link>

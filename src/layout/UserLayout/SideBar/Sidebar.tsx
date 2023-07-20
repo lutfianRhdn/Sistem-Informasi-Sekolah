@@ -46,7 +46,7 @@ export default function Sidebar(props: { isShow: boolean; isShowMd: boolean }) {
       <div className="sidebar-nav flex-fill">
         {role === 'murid' && <SidebarNav.SidebarNavStudent />}
         {role === 'guru' && <SidebarNav.SidebarNavTeacher />}
-
+        {role === 'walikelas' && <SidebarNav.SidebarNavWaliKelas />}
         
       </div>
 

@@ -24,7 +24,7 @@ export default () => {
         <Row md={3}>
           {quiz&&quiz.map((item: any,index:number) => (
             <Col key={index}>
-              <QuizCard description={item.description} id={item.id} path_file={item.pah_file} title={item.title} type={ item.type} />
+              <QuizCard description={item.description} id={item.id} path_file={item.path_file} title={item.title} type={ item.type} />
           </Col>
             ))}
         </Row>

@@ -12,30 +12,37 @@ type TypeLabelProps = {
 type Props = {
   datas: object[];
   headers: string[];
+  isHiddenAction?: boolean;
 } & Pick<Parameters<typeof THSort>[0], 'setSort' | 'setOrder'>
 
 export default function Table(props: Props) {
-  const { datas,headers, setSort, setOrder } = props
+  const { datas, headers, setSort, setOrder, isHiddenAction } = props
 
   return (
     <ReactTable  bordered hover >
       <thead className="bg-light">
         <tr>
           <th> <THSort name='index' setSort={setSort} setOrder={setOrder}>#</THSort></th>
-          {headers.map(header => (
-            <th className="text-end"><THSort name={header} setSort={setSort} setOrder={setOrder}>{header}</THSort></th>
+          {headers.map((header,index) => (
+            <th className="text-end" key={index}><THSort name={header} setSort={setSort} setOrder={setOrder}>{header}</THSort></th>
           ))}
-          <th aria-label="Action" />
+          {!isHiddenAction && (
+
+            <th aria-label="Action" >
+              Action
+            </th>
+          )}
         </tr>
       </thead>
       <tbody>
-        {datas.map((data:any,index) => (
+        {datas&& datas.map((data:any,index) => (
           <tr key={index}>
             <td>{index + 1}</td>
-            {headers.map(header => (
-              <td>{data[header].split('_').join(' ')}</td>
+            {headers.map((header,key) => (
+              <td key={key}>{data[header].toString().split('_').join(' ')}</td>
             )
             )}
+            {!isHiddenAction && (
             <td>
               <Dropdown align="end">
                 <Dropdown.Toggle
@@ -56,7 +63,9 @@ export default function Table(props: Props) {
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
-            </td>
+              </td>
+            )}
+
           </tr>
         ))}
       </tbody>

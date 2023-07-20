@@ -151,12 +151,24 @@ export const SidebarNavTeacher = () => (
     <SidebarNavItem icon={faTableList} href="/quiz">
       Soal
     </SidebarNavItem>
-    <SidebarNavItem icon={faRankingStar} href="/student/score">
-      Nilai
-    </SidebarNavItem>
+  
   </ul>
   </>
 )
-export default {SidebarNavStudent, SidebarNavTeacher}
+
+export const SidebarNavWaliKelas = () => (
+  <>
+    <ul className="list-unstyled">
+      <SidebarNavItem icon={faGauge} href="/dashboard">
+        Dashboard
+      </SidebarNavItem>
+      <SidebarNavItem icon={faRankingStar} href="/score">
+        Nilai
+      </SidebarNavItem>
+
+    </ul>
+  </>
+)
+export default { SidebarNavStudent, SidebarNavTeacher, SidebarNavWaliKelas }
 
 

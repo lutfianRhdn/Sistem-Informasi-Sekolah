@@ -1,17 +1,21 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import prisma from '@lib/database'
-import {hashSync} from 'bcrypt-ts';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const {name} = req.body
+  const {id,value} = req.body
   try {
-    const classCreated = await prisma.kelas.create({
+    const answered = await prisma.jawaban.update({
+      where: {
+        id: +id
+      },
       data: {
-        nama: name,
-        password: hashSync(name, 10)
+        nilai: +value
+      },
+      include: {
+        murid: true,
       }
     })
-    return res.status(200).json({ register: true,classCreated })
+    return res.status(200).json({ ...answered})
   } catch (error) {
     console.error(error)
     return res.status(500).json({ register: false, error })

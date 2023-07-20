@@ -11,6 +11,7 @@ import { useRouter } from 'next/router'
 import axios from 'axios'
 import { deleteCookie, getCookie } from 'cookies-next'
 import { Toast } from '@components/Toast'
+import Link from 'next/link'
 
 const Login: NextPage = () => {
   const router = useRouter()
@@ -100,7 +101,7 @@ const Login: NextPage = () => {
                       />
                     </InputGroup>
 
-                    <InputGroup className="mb-3">
+                    <InputGroup className="mb-1">
                       <InputGroup.Text>
                         <FontAwesomeIcon
                           icon={faLock}
@@ -119,11 +120,14 @@ const Login: NextPage = () => {
                     
                       />
                     </InputGroup>
-
-                <Row className='justify-content-between'>
+                  <Link className='' href="wali-kelas-login" >
+                    <i>  Login Sebagai Wali Kelas</i>
+                  </Link>
+                <Row className='justify-content-between mt-3'>
                       <Col xs={6}>
                         <Button className="px-4" variant="primary" type="submit" disabled={submitting}>Login</Button>
-                      </Col>
+                    </Col>
+                  
                     </Row>
                   </form>
                 </div>

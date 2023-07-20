@@ -5,17 +5,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
     const { guru_id,murid_id } = req.query
     const condition = guru_id ? { guru_id: +guru_id } : {}
+    const includeAnswer =murid_id? {jawaban: {
+          where: {
+            murid_id: +murid_id
+          },
+        }}:{}
     const now = new Date()
     const quizes = await prisma.soal.findMany({
       where: {
         ...condition, tenggat: {
         }
       }, include: {
-        jawaban: {
-          where: {
-            murid_id: +murid_id
-          },
-        }
+       ...includeAnswer
       }
       })
       
