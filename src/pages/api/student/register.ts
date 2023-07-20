@@ -3,7 +3,8 @@ import prisma from '@lib/database'
 import {hashSync} from 'bcrypt-ts';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const {name,nis,address,class_id} = req.body
+  const { name, nis, address, class_id } = req.body
+  
   try {
     const user = await prisma.murid.create({
       data: {
