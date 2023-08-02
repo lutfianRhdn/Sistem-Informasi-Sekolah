@@ -8,6 +8,7 @@ generator client {
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 model Murid {
@@ -21,6 +22,8 @@ model Murid {
   jawaban Jawaban[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@index([kelas_id])
 }
 model Kelas{
   id        Int      @id @default(autoincrement())
@@ -56,6 +59,8 @@ model Soal{
   guru_id Int
   guru Guru @relation(fields: [guru_id], references: [id])
   jawaban Jawaban[]
+
+  @@index([guru_id])
 }
 
 enum SoalType {
@@ -75,6 +80,9 @@ model Jawaban {
   murid Murid @relation(fields: [murid_id], references: [id])
   soal Soal @relation(fields: [soal_id], references: [id])
 
+
+  @@index([soal_id])
+  @@index([murid_id])
 }
 
   

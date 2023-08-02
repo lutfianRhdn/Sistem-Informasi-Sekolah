@@ -5,9 +5,9 @@ import {hashSync} from 'bcrypt-ts';
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     const { nis } = req.query
-    const condition = nis ? {nis}: {}
+    const where = nis ? {nis}: {}
     const students = await prisma.murid.findMany({
-      where: condition,
+      where,
       select: {
         kelas: {
           select: {

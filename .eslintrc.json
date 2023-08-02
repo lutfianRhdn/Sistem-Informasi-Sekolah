@@ -66,6 +66,11 @@
     "semi": [
       2,
       "never"
-    ]
+    ],
+    "no-console":"off",
+    "comma-dangle":"off",
+    "comma-spacing":"off",
+    "object-curly-spacing":"off",
+    "comma-style":"off"
   }
 }
